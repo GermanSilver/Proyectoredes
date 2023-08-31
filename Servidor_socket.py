@@ -9,8 +9,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     conn, addr = s.accept()
     with conn:
         print(f"Conestado desde {addr}")
+        
         while True:
             data = conn.recv(1024)
+            if b'/' in data:
+                conn.send(b"Comando recibido")
             if not data:
                 break
             conn.sendall(data)
